@@ -84,7 +84,7 @@ const geojson = computed(() => {
     ...f,
     properties: {
       ...f.properties,
-      color: stablePastelColor(f.properties.asum_nimi)
+      color: stablePastelColor(f.properties.linnaosa_nimi)
     }
   }))
   return data
@@ -112,7 +112,7 @@ const fillPaint = computed(() => ({
     'case',
     ['boolean', ['feature-state', 'hover'], false],
     0.15, // opacity when hovered
-    0.55  // opacity normal
+    0.75  // opacity normal
   ],
 }))
 
