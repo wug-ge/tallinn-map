@@ -4,4 +4,5 @@
       <UColorModeSwitch />
     </div>
   </UContainer>
+  <FooterBar />
 </template>
