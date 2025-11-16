@@ -5,6 +5,8 @@
       <img class="size-12" :src="flagForFeature(feature)" />
       <h1 class="ml-2 text-xl">{{  feature.properties.asumi_nimi }}</h1>
     </div>
+
+    <MapMainDistrictPopulation :feature="feature" />
   </div>
 </template>
 
