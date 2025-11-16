@@ -1,5 +1,9 @@
 <template>
-  <div>{{ populationForSelectedDistrict }}</div>
+  <MapMainDistrictPopulationChart
+    v-if="populationForSelectedDistrict !== 'no-data'"
+    :district-name="feature.properties.linnaosa_nimi.split(' ')[0]"
+    :data-by-year="populationForSelectedDistrict"
+    />
 </template>
 
 <script lang="ts" setup>
@@ -13,28 +17,28 @@ const props = defineProps<Props>()
 
 // https://andmed.stat.ee/en/stat/rahvastik__rahvastikunaitajad-ja-koosseis__rahvaarv-ja-rahvastiku-koosseis/RV0240/table/tableViewLayout2
 const populationRequestJson = {
-    "query": [
-      {
-        "code": "Elukoht",
-        "selection": {
-          "filter": "item",
-          "values": [
-            "176",
-            "298",
-            "339",
-            "387",
-            "482",
-            "524",
-            "596",
-            "614"
-          ]
-        }
+  "query": [
+    {
+      "code": "Elukoht",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "176",
+          "298",
+          "339",
+          "387",
+          "482",
+          "524",
+          "596",
+          "614"
+        ]
       }
-    ],
-    "response": {
-      "format": "json-stat2"
     }
+  ],
+  "response": {
+    "format": "json-stat2"
   }
+}
 
 onMounted(() => {
   fetchPopulationData()
@@ -90,7 +94,7 @@ const fetchPopulationData = async () => {
     body: JSON.stringify(populationRequestJson)
   })
   const data = await res.json();
-  
+
   populationData.value = data
 }
 

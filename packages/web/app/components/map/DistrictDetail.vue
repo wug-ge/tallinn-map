@@ -3,7 +3,7 @@
     <div class="flex items-center px-4 py-4">
       <Icon class="absolute right-4 cursor-pointer text-white" name="material-symbols:close" size="24" @click="$emit('close')" />
       <img class="size-12" :src="flagForFeature(feature)" />
-      <h1 class="ml-2 text-xl">{{  feature.properties.asumi_nimi }}</h1>
+      <h1 class="ml-2 text-xl">{{  feature.properties.linnaosa_nimi.split(' ')[0] }} ({{ feature.properties.asumi_nimi }})</h1>
     </div>
 
     <MapMainDistrictPopulation :feature="feature" />
