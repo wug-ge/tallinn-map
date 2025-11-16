@@ -90,7 +90,7 @@ const layout = {
 
 const paint = {
   'line-color': '#FF0000',
-  'line-width': 4
+  'line-width': 2
 };
 
 const fillPaint = computed(() => ({
@@ -103,8 +103,8 @@ const fillPaint = computed(() => ({
   'fill-opacity': [
     'case',
     ['boolean', ['feature-state', 'hover'], false],
-    0.0, // opacity when hovered
-    0.35  // opacity normal
+    0.1, // opacity when hovered
+    0.8  // opacity normal
   ],
 }))
 
