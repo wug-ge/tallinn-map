@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full h-20">
-    <div class="ml-3 mb-2">Population ({{ districtName }})</div>
+  <div class="w-full h-20 mx-4">
+    <div class="mb-2">Total</div>
     <v-chart :option="option" autoresize />
   </div>
 </template>
@@ -14,6 +14,7 @@ import { use } from "echarts/core";
 import { LineChart } from "echarts/charts";
 import { CanvasRenderer } from 'echarts/renderers';
 import { GridComponent, TitleComponent, TooltipComponent } from 'echarts/components';
+import { getTallinnPopulationByYear } from '~/lib/services/TotalPopulationService';
 
 use([
   CanvasRenderer,
@@ -23,12 +24,8 @@ use([
   LineChart,
 ])
 
-const props = defineProps({
-  districtName: { type: String, required: true },
-  dataByYear: { type: Object, required: true } // { "2015": 42844, ... }
-})
 
-function buildPopulationOption(districtName: string, dataByYear: Record<string, number>) {
+function buildPopulationOption(dataByYear: Record<string, number>) {
   const years = Object.keys(dataByYear).sort()
   const values = years.map(year => dataByYear[year])
 
@@ -42,7 +39,7 @@ function buildPopulationOption(districtName: string, dataByYear: Record<string, 
       borderWidth: 0,
       borderColor: 'transparent',
       padding: 0,
-      formatter(params) {
+      /*formatter(params) {
         const p = params[0]
         return `
           <div style="padding: 8px; color: white; background: #333; border-radius: 4px;">
@@ -50,7 +47,7 @@ function buildPopulationOption(districtName: string, dataByYear: Record<string, 
             <div>Population: ${p.value.toLocaleString('en-US')}</div>
           </div>
         `
-      }
+      }*/
     },
     // grid: { left: '8%', right: '4%', top: 60, bottom: 40 },
     xAxis: {
@@ -92,9 +89,11 @@ function buildPopulationOption(districtName: string, dataByYear: Record<string, 
   }
 }
 
+const populationByYear = await getTallinnPopulationByYear()
 const option = computed(() =>
-  buildPopulationOption(props.districtName, props.dataByYear)
+  buildPopulationOption(populationByYear)
 )
+
 </script>
 
 <style scoped>

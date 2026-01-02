@@ -17,5 +17,6 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     'nuxt-maplibre',
     'nuxt-echarts',
+    '@pinia/nuxt',
   ],
 })

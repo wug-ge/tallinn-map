@@ -1,5 +1,5 @@
 <template>
-  <MapDistrictDetail v-if="selectedFeature" :feature="selectedFeature" @close="selectedFeature = null" />
+  <MapDistrictDetail v-if="activeCard.card === 'DISTRICT_DETAIL'" :feature="activeCard.props" @close="activeCard.card = 'GENERAL'" />
   <div class="w-full h-lvh relative right-0">
     <MglMap map-key="tallinn" :map-style="style" :center="center" :zoom="zoom" :pitch="pitch">
       <MglGeoJsonSource :generate-id="true" source-id="asumid" :data="geojson">
@@ -133,7 +133,7 @@ const onMove = (e: MapLayerMouseEvent) => {
 }
 
 function onLeave() {
-  console.log('mouseleave')
+  // console.log('mouseleave')
 }
 
 function stablePastelColor(name = Math.random().toString()) {
@@ -170,14 +170,16 @@ function hslToHex(h, s, l) {
     .join('')
 }
 
-const selectedFeature = ref<MapGeoJSONFeature | null>(null)
+// const selectedFeature = ref<MapGeoJSONFeature | null>(null)
+const { activeCard } = storeToRefs(useSettingsStore())
 function onClick(e: MapLayerMouseEvent) {
   const feature = e.features?.[0]
   if (!feature?.properties) return
   // const asumiNimi = feature.properties.asumi_nimi
   // const linnaosaNimi = feature.properties.linnaosa_nimi
   // alert(`You clicked on ${asumiNimi} in ${linnaosaNimi} `+ JSON.stringify(feature.properties))
-  selectedFeature.value = feature
+  activeCard.value.card = "DISTRICT_DETAIL"
+  activeCard.value.props = feature
 }
 
 </script>
